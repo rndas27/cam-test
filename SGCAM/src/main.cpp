@@ -10,13 +10,19 @@ bool selected_camera = false; // false --> camera 1, true --> camera 2
 // #define VIDEO_MUX
 //#define CAN_TEST
 //#define REG_TEST
-#define REG_OFF
-#define MOSFET_TEST
+// #define REG_OFF
+// #define MOSFET_TEST
+#define CHRISTMAS_TEST
 
 #ifdef CAN_TEST
 
 ACAN2517FD can (CAN_CS, SPI, CAN_INT) ; // You can use SPI2, SPI3, if provided by your microcontroller
 
+#endif
+
+#ifdef CHRISTMAS_TEST
+#include <buzzer.h>
+bool cur_light_state = false;
 #endif
 
 
@@ -34,6 +40,12 @@ void setup() {
 
     SPI.begin(SPI_SCK, SPI_MISO, SPI_MOSI);
     Wire.begin();
+
+    #ifdef CHRISTMAS_TEST
+      pinMode(BUZZER_PIN, OUTPUT);
+      digitalWrite(BUZZER_PIN, LOW);
+      ledcAttachPin(BUZZER_PIN, BUZZER_CHANNEL);
+    #endif
 
     #ifdef REG_OFF
       pinMode(REG_12V, OUTPUT);
@@ -125,6 +137,22 @@ void loop() {
       delay(5000);
       bool cur_stream = toggle_camera();
       Serial.print(cur_stream ? "Stream 2\n" : "Stream 1\n");
+    #endif
+
+    #ifdef CHRISTMAS_TEST
+      //play christmas
+      for(int i = 0; i < MERRY_CHRISTMAS_LENGTH; i++){
+        cur_light_state = !cur_light_state;
+
+        digitalWrite(LED_GREEN, cur_light_state);
+        digitalWrite(LED_RED, !cur_light_state);
+
+        Sound s = merry_christmas[i];
+        ledcWriteTone(BUZZER_CHANNEL, s.frequency);
+        delay(s.duration_ms);
+      }
+
+      delay(2000);
     #endif
 
     #ifdef CAN_TEST
