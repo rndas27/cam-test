@@ -8,8 +8,10 @@
 bool selected_camera = false; // false --> camera 1, true --> camera 2
 
 // #define VIDEO_MUX
-#define CAN_TEST
-#define REG_TEST
+//#define CAN_TEST
+//#define REG_TEST
+#define REG_OFF
+#define MOSFET_TEST
 
 #ifdef CAN_TEST
 
@@ -32,6 +34,11 @@ void setup() {
 
     SPI.begin(SPI_SCK, SPI_MISO, SPI_MOSI);
     Wire.begin();
+
+    #ifdef REG_OFF
+      pinMode(REG_12V, OUTPUT);
+      digitalWrite(REG_12V, LOW);
+    #endif
 
     #ifdef REG_TEST
       pinMode(REG_12V, OUTPUT);
@@ -59,6 +66,13 @@ void setup() {
         Serial.print ("Error Can: 0x") ;
         Serial.println (errorCode, HEX) ;
       }
+    #endif
+
+    #ifdef MOSFET_TEST
+      pinMode(ON_OFF_2, OUTPUT);
+      pinMode(ON_OFF_VTX, OUTPUT);
+      digitalWrite(ON_OFF_2, LOW);
+      digitalWrite(ON_OFF_VTX, LOW);
     #endif
 
     delay(500);
@@ -185,6 +199,22 @@ void loop() {
         digitalWrite(LED_RED, LOW);
       }
 
+
+    #endif
+
+    #ifdef MOSFET_TEST
+    digitalWrite(ON_OFF_2, HIGH);
+    digitalWrite(LED_BLUE, HIGH);
+
+    delay(3000);
+    digitalWrite(ON_OFF_2, LOW);
+    digitalWrite(LED_BLUE, LOW);
+    digitalWrite(ON_OFF_VTX, HIGH);
+    digitalWrite(LED_RED, HIGH);
+
+    delay(3000);
+    digitalWrite(ON_OFF_VTX, LOW);
+    digitalWrite(LED_RED, LOW);
 
     #endif
 

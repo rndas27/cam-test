@@ -19,4 +19,8 @@
 #define CAN_SILENT 21
 #define CAN_FAULT 26
 
+
+//on/off pins
 #define REG_12V 44
+#define ON_OFF_2 2
+#define ON_OFF_VTX 4
