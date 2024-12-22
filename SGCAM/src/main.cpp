@@ -249,7 +249,8 @@ void loop() {
       delay(10000);
       digitalWrite(LED_GREEN, LOW);
       digitalWrite(LED_RED, LOW);
-      digitalWrite(LED_ORANGE, LOW);
+      digitalWrite(ON_OFF_2, LOW);
+      digitalWrite(ON_OFF_VTX, LOW);
       toggle_camera();
       
     #endif
