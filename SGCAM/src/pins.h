@@ -12,6 +12,10 @@
 #define SPI_MOSI 15
 #define SPI_MISO 16
 
+//buzzer pin
+#define BUZZER_PIN 35
+#define BUZZER_CHANNEL 1
+
 // Can stuff
 #define CAN_CS 17
 #define CAN_INT 12
