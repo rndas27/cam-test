@@ -8,8 +8,9 @@
 bool selected_camera = false; // false --> camera 1, true --> camera 2
 
 // #define VIDEO_MUX
-//#define CAN_TEST
-//#define REG_TEST
+// #define CAN_TEST
+// #define REG_TEST
+// #define FULL_TEST
 // #define REG_OFF
 // #define MOSFET_TEST
 #define CHRISTMAS_TEST
@@ -41,6 +42,19 @@ void setup() {
     SPI.begin(SPI_SCK, SPI_MISO, SPI_MOSI);
     Wire.begin();
 
+    #ifdef FULL_TEST
+      pinMode(REG_12V, OUTPUT);
+      digitalWrite(REG_12V, HIGH);
+
+      pinMode(ON_OFF_2, OUTPUT);
+      pinMode(ON_OFF_VTX, OUTPUT);
+      digitalWrite(ON_OFF_2, LOW);
+      digitalWrite(ON_OFF_VTX, LOW);
+
+      pinMode(VIDEO_SELECT, OUTPUT);
+      digitalWrite(VIDEO_SELECT, LOW);
+    #endif
+  
     #ifdef CHRISTMAS_TEST
       pinMode(BUZZER_PIN, OUTPUT);
       digitalWrite(BUZZER_PIN, LOW);
@@ -244,6 +258,29 @@ void loop() {
     digitalWrite(ON_OFF_VTX, LOW);
     digitalWrite(LED_RED, LOW);
 
+    #endif
+
+    #ifdef FULL_TEST
+      digitalWrite(LED_ORANGE, HIGH);
+
+      delay(10000);
+      digitalWrite(ON_OFF_2, HIGH);
+      digitalWrite(LED_RED, HIGH);
+
+      delay(10000);
+      digitalWrite(ON_OFF_VTX, HIGH);
+      digitalWrite(LED_GREEN, HIGH);
+
+      delay(10000);
+      toggle_camera();
+
+      delay(10000);
+      digitalWrite(LED_GREEN, LOW);
+      digitalWrite(LED_RED, LOW);
+      digitalWrite(ON_OFF_2, LOW);
+      digitalWrite(ON_OFF_VTX, LOW);
+      toggle_camera();
+      
     #endif
 
     delay(1);
