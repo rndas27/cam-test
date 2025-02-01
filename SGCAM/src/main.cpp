@@ -7,13 +7,14 @@
 
 bool selected_camera = false; // false --> camera 1, true --> camera 2
 
+// #define MCU_TEST
 // #define VIDEO_MUX
 // #define CAN_TEST
 // #define REG_TEST
-// #define FULL_TEST
+//#define FULL_TEST
 // #define REG_OFF
 // #define MOSFET_TEST
-#define CHRISTMAS_TEST
+// #define CHRISTMAS_TEST
 
 #ifdef CAN_TEST
 
@@ -40,11 +41,11 @@ void setup() {
     Serial.println("Begin setup.");
 
     SPI.begin(SPI_SCK, SPI_MISO, SPI_MOSI);
-    Wire.begin();
+    Wire.begin(SDA, SCL);
 
     #ifdef FULL_TEST
-      pinMode(REG_12V, OUTPUT);
-      digitalWrite(REG_12V, HIGH);
+      // pinMode(REG_12V, OUTPUT);
+      // digitalWrite(REG_12V, HIGH);
 
       pinMode(ON_OFF_2, OUTPUT);
       pinMode(ON_OFF_VTX, OUTPUT);
@@ -134,18 +135,24 @@ static unsigned gSendDate = 0 ;
 static unsigned gSentCount = 0 ;
 
 void loop() {
-    // int power = read_reg(0x8, 3);
-    // int current = read_reg(0x7, 2);
-    // int temp = read_reg(0x6, 2);
-    // int voltage = read_reg(0x5, 2);
-    // Serial.print("Voltage ");
-    // Serial.println(voltage * 3.125 / 1000.0);
-    // Serial.print("Temp ");
-    // Serial.println(temp * 125 / 1000.0);
-    // Serial.print("Current ");
-    // Serial.println(current * 1.2 / 1000.0);
-    // Serial.print("Power ");
-    // Serial.println(power * 240 / 1000000.0);
+    int power = read_reg(0x8, 3);
+    int current = read_reg(0x7, 2);
+    int temp = read_reg(0x6, 2);
+    int voltage = read_reg(0x5, 2);
+    Serial.print("Voltage ");
+    Serial.println(voltage * 3.125 / 1000.0);
+    Serial.print("Temp ");
+    Serial.println(temp * 125 / 1000.0);
+    Serial.print("Current ");
+    Serial.println(current * 1.2 / 1000.0);
+    Serial.print("Power ");
+    Serial.println(power * 240 / 1000000.0);
+    delay(5000);
+
+    #ifdef MCU_TEST
+      Serial.println("hi!");
+      delay(500);
+    #endif
 
     #ifdef VIDEO_MUX
       delay(5000);

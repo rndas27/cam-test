@@ -12,6 +12,10 @@
 #define SPI_MOSI 15
 #define SPI_MISO 16
 
+//I2C
+#define SCL 5
+#define SDA 6
+
 //buzzer pin
 #define BUZZER_PIN 35
 #define BUZZER_CHANNEL 1
@@ -25,6 +29,6 @@
 
 
 //on/off pins
-#define REG_12V 44
-#define ON_OFF_2 2
-#define ON_OFF_VTX 4
+#define ON_OFF_1 3
+#define ON_OFF_2 4
+#define ON_OFF_VTX 2
