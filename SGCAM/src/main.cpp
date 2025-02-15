@@ -40,8 +40,18 @@ void setup() {
     delay(3000);
     Serial.println("Begin setup.");
 
-    SPI.begin(SPI_SCK, SPI_MISO, SPI_MOSI);
-    Wire.begin(SDA, SCL);
+    SPI.begin(CAN_SPI_SCK, CAN_SPI_MISO, CAN_SPI_MOSI);
+    Wire.begin(I2C_SDA, I2C_SCL);
+
+    pinMode(CAM1_RX, INPUT);
+    pinMode(CAM1_TX, OUTPUT);
+
+    Serial1.setPins(CAM1_RX, CAM1_TX);
+    Serial1.begin(115200, SERIAL_8N1, CAM1_RX, CAM1_TX);
+
+    pinMode(CAM1_ON_OFF, OUTPUT);
+    digitalWrite(CAM1_ON_OFF, HIGH);
+
 
     #ifdef FULL_TEST
       // pinMode(REG_12V, OUTPUT);
@@ -147,7 +157,25 @@ void loop() {
     Serial.println(current * 1.2 / 1000.0);
     Serial.print("Power ");
     Serial.println(power * 240 / 1000000.0);
+
+    Serial1.flush();
+
+    uint8_t read1[3] = {0xCC, 0x00, 0x60}; 
+    uint8_t read2[5];
+    Serial1.write(read1, 3);
+    delay(100);
+    //Serial.println(Serial1.available());
+    while(!Serial1.available()) {}
+      Serial1.readBytes(read2, 5);
+      Serial.println(read2[0]);
+      Serial.println(read2[1]);
+      Serial.println(read2[2]);
+      Serial.println(read2[3]);
+      Serial.println(read2[4]);
+
     delay(5000);
+
+
 
     #ifdef MCU_TEST
       Serial.println("hi!");

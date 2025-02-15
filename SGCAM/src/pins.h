@@ -1,34 +1,41 @@
+#pragma once
+
+
+// Camera/Video Control Pins
+#define CAM1_ON_OFF 3
+#define CAM2_ON_OFF 2
+#define VTX_ON_OFF 4
 
 #define VIDEO_SELECT 1
 
+#define CAM1_TX 8
+#define CAM1_RX 9
+#define CAM2_TX 10
+#define CAM2_RX 11
+
+// I2C Busses
+#define BATTSENSE_SCL 5
+#define BATTSENSE_SDA 6
+#define BATTSENSE_ALERT 7
+
+#define I2C_SCL 36
+#define I2C_SDA 37
+
+// CAN
+#define CAN_SPI_SCK 14
+#define CAN_SPI_MOSI 15
+#define CAN_SPI_MISO 16
+#define CAN_NCS 17
+#define CAN_NINT 12
+#define CAN_NINT1 13
+#define CAN_SLNT 21
+#define CAN_FAULT 26
+
+// Buzzer - defined in buzzer.cpp
+// #define BUZZER 35
+
+//LEDs
 #define LED_BLUE 39
 #define LED_GREEN 40
 #define LED_ORANGE 41
 #define LED_RED 42
-
-#define SPI_SCK 14
-
-// Schematic has MOSI @ 16, MISO @ 15. These pins are swapped, so we swap them back in code.
-#define SPI_MOSI 15
-#define SPI_MISO 16
-
-//I2C
-#define SCL 5
-#define SDA 6
-
-//buzzer pin
-#define BUZZER_PIN 35
-#define BUZZER_CHANNEL 1
-
-// Can stuff
-#define CAN_CS 17
-#define CAN_INT 12
-
-#define CAN_SILENT 21
-#define CAN_FAULT 26
-
-
-//on/off pins
-#define ON_OFF_1 3
-#define ON_OFF_2 4
-#define ON_OFF_VTX 2
