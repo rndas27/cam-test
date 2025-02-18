@@ -8,10 +8,10 @@
 
 #define VIDEO_SELECT 1
 
-#define CAM1_TX 8
-#define CAM1_RX 9
-#define CAM2_TX 10
-#define CAM2_RX 11
+#define CAM1_TX 9
+#define CAM1_RX 8
+#define CAM2_TX 11
+#define CAM2_RX 10
 
 // I2C Busses
 #define BATTSENSE_SCL 5
