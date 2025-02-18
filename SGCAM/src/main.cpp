@@ -232,7 +232,12 @@ void loop() {
     Serial1.write(read1, 3);
     delay(100);
     //Serial.println(Serial1.available());
-    if(Serial1.available()) {}
+    
+    if(Serial1.available()) {
+      digitalWrite(LED_GREEN, HIGH);
+      delay(500);
+      digitalWrite(LED_GREEN, LOW);
+    }
       Serial1.readBytes(read2, 5);
       Serial.println(read2[0]);
       Serial.println(read2[1]);
